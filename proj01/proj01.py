@@ -1,3 +1,4 @@
+import numpy
 # Name:
 # Date:
 
@@ -32,3 +33,12 @@ if age < 17 and age >= 13:
     print "You can watch G, PG, and PG-13 movies without parental guidance. You can also watch R movies, but with parental guidance."
 if age < 13:
     print "You can watch G and PG movies without guidance, but this depends on the parents. However, you mus watch PG-13 movies with parental guidance."
+
+n = 0
+while n < 100:
+    derp = derp + 1
+    n = n + 1
+print derp
+
+
+numpy.arange(3, 3, 1)
