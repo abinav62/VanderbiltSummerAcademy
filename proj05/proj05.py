@@ -4,83 +4,69 @@
 # proj05: functions and lists
 
 # Part I
+import random
 
 def divisors(num):
-    """
-    Takes a number and returns all divisors of the number, ordered least to greatest
-    :param num: int
-    :return: list (int)
-    """
-    return 0
+    divisor = []
+    for i in range(1, num+1):
+        if num%i == 0:
+            divisor.append(i)
+    return divisor
+print divisors(8)
 
 def prime(num):
-    """
-    Takes a number and returns True if the number is prime, otherwise False
-    :param num: int
-    :return: bool
-    """
-    return False
+    for i in range(2,int(num**0.5)+1):
+        if num%i==0:
+            return False
+
+    return True
 
 # Part II
 
-def intersection(lst1, lst2):
-    """
-    Takes two lists and returns a list of the elements in common between the lists
-    :param lst1: list, any type
-    :param lst2: list, any type
-    :return: list, any type
-    """
-    return ["test"]
-
-# Part III
+def intersection():
+    lst1 = random.sample(range(10), random.randint(1, 10))
+    lst2 = random.sample(range(10), random.randint(1, 10))
+    return list(set(lst1).intersection(lst2))
+print intersection()
 
 def find_ab(side1, side2, side3):
-    """
-    Takes three side lengths an returns two smallest in a list
-    :param side1: int or float
-    :param side2: int or float
-    :param side3: int or float
-    :return: list of 2 ints or floats
-    """
-    return [0, 0]
-
+    ab = []
+    if side1 > side2 and side1 > side3:
+        ab.append(side2)
+        ab.append(side3)
+    elif side2 > side1 and side2>side3:
+        ab.append(side1)
+        ab.append(side3)
+    else:
+        ab.append(side2)
+        ab.append(side1)
+    return ab
+print find_ab(3, 4, 5)
 def find_c(side1, side2, side3):
-    """
-    Takes three side lengths an returns the largest
-    :param side1: int or float
-    :param side2: int or float
-    :param side3: int or float
-    :return: int or float
-    """
-    return 0
+    if side1 > side2 and side1>side3:
+        return side1
+    elif side2 > side1 and side2>side3:
+        return side2
+    else:
+        return side3
 
 def square(side):
-    """
-    Takes a side length and returns the side length squared
-    :param side: int or float
-    :return: int or float
-    """
-    return 0
+    a = side**2
+    return a
 
 def pythagorean(a,b,c):
-    """
-    Takes three side lengths and returns true if a^2 + b^2 = c^2, otherwise false
-    :param a: int or float
-    :param b: int or float
-    :param c: int or float
-    :return: bool
-    """
-    return False
+    if a**2 + b**2 == c**2:
+        return True
+    else:
+        return False
 
 def is_right(side1, side2, side3):
-    """
-    Takes three side lengths and returns true if triangle is right
-    :param side1: int or float
-    :param side2: int or float
-    :param side3: int or float
-    :return: bool
-    """
-    return False
+    ab_list = find_ab(side1, side2, side3)
+    c = find_c(side1, side2, side3)
+    if square(ab_list[0]) + square(ab_list[1]) == square(c):
+        return True
+    else:
+        return False
 
 # TESTS
 # Feel free to add your own tests as needed!
@@ -166,3 +152,5 @@ if is_right(9, 3, 4):
     print("Test 12: FAIL")
 else:
     print("Test 12: PASS")
+print pythagorean(3, 4, 5)
+

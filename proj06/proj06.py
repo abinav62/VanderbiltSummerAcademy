@@ -44,5 +44,18 @@ def choose_word(wordlist):
 # the wordlist variable so that it can be accessed from anywhere
 # in the program
 wordlist = load_words()
+derp = choose_word(wordlist)
+word = list(derp)
 
+unknown_word = ["_ " * len(word)]
+print word
 # your code begins here!
+print "Welcome to the game, Hangman!"
+print "_ " * len(word)
+first_guess = raw_input("I am thinking of a number that is " + str(len(word)) + " letters long.")
+def correct_letter(guess):
+    for letter in word:
+        if guess == letter:
+            str(unknown_word).replace()
+correct_letter(first_guess)
+print unknown_word
