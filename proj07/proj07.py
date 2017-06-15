@@ -8,7 +8,8 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 7
+HAND_SIZE = 10
+
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k':
@@ -71,7 +72,6 @@ def get_word_score(word, n):
     else:
         pass
     return score
-print get_word_score('weed', HAND_SIZE)
 def display_hand(hand):
     """
     Displays the letters currently in the hand.
@@ -144,7 +144,6 @@ def update_hand(hand, word):
         letters_left = hand.get(letter) - word_frequency.get(letter, 0)
         dict[letter] = letters_left
     return dict
-print update_hand({'a':1, 'x':2, 'l':3, 'e':1}, 'a')
 # Problem #3: Test word validity
 #
 def is_valid_word(word, hand, word_list):
@@ -169,7 +168,6 @@ def is_valid_word(word, hand, word_list):
             return False
     return True
 
-print is_valid_word('ale', {'a':1, 'x':2, 'l':3, 'e':1}, 'ale')
 
 def calculate_handlen(hand):
     handlen = 0
@@ -209,11 +207,38 @@ def play_hand(hand, word_list):
       
     """
     # TO DO ...
-    print "Press ENTER to start The Word Game!"
-    raw_input()
-    display_hand(hand)
-    ask_word = raw_input("Type a word using the letters given.")
-    if is_valid_word(ask_word, hand, )
+    score = 0
+    # As long as there are still letters left in the hand:
+    while calculate_handlen(hand) > 0:
+        # Display the hand
+        print display_hand(hand)
+        # Ask user for input
+        word = raw_input('Enter word, or a "." to indicate that you are finished:')
+        # If the input is a single period:
+        if word == '.':
+            # End the game (break out of the loop)
+            break
+
+        # Otherwise (the input is not a single period):
+        else:
+            # If the word is not valid:
+            if not is_valid_word(word, hand, load_words()):
+                # Reject invalid word (print a message followed by a blank line)
+                print 'Invalid word, please try again.\n'
+            # Otherwise (the word is valid):
+            else:
+                # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
+                score_word = get_word_score(word, HAND_SIZE)
+                score += score_word
+                print '"%s" earned %s points. Total: %s points.\n' % (word, score_word, score)
+                # Update the hand
+                hand = update_hand(hand, word)
+
+    # Game is over (user entered a '.' or ran out of letters), so tell user the total score
+    if calculate_handlen(hand) > 0:
+        print 'Goodbye! Total score: %s points.' % (score)
+    else:
+        print 'Run out of letters. Total score: %s points.' % (score)
 #
 # Problem #5: Playing a game
 # Make sure you understand how this code works!
@@ -236,10 +261,29 @@ def play_game(word_list):
     # TO DO...
     #if
     #ask_word2 = raw_input("Type N for new hand, R for the same hand, or E to leave ")
+    n = HAND_SIZE
+    hand = {}
 
-#
+    while True:  # ?
+        cmd = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game:')
+        if cmd == 'r':
+            if not hand:
+                print 'You have not played a hand yet. Please play a new hand first!'
+            else:
+                play_hand(hand, load_words())
+        elif cmd == 'n':
+            hand = deal_hand(n)
+            play_hand(hand, load_words())
+        elif cmd == 'e':
+            break
+        else:
+            print 'Invalid command.'
+
+
 # Build data structures used for entire session and play game
 #
 if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)
+
+
