@@ -21,7 +21,6 @@ SCRABBLE_LETTER_VALUES = {
 # (you don't need to understand this helper code)
 
 WORDLIST_FILENAME = "words.txt"
-
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
@@ -62,25 +61,17 @@ def get_frequency_dict(sequence):
 # Problem #1: Scoring a word
 #
 def get_word_score(word, n):
-    """
-    Returns the score for a word. Assumes the word is a
-    valid word.
-
-	The score for a word is the sum of the points for letters
-	in the word multiplied by the length of the word, plus 50
-	points if all n letters are used on the first go.
-
-	Letters are scored as in Scrabble; A is worth 1, B is
-	worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
-
-    word: string (lowercase letters)
-    returns: int >= 0
-    """
-    # TO DO...
-    
-#
-# Make sure you understand how this function works and what it does!
-#
+    word1 = list(word)
+    sum= 0
+    for x in word1:
+        sum += SCRABBLE_LETTER_VALUES.get(x)
+    score = sum * len(word)
+    if len(word) == n:
+        score = score + 50
+    else:
+        pass
+    return score
+print get_word_score('weed', HAND_SIZE)
 def display_hand(hand):
     """
     Displays the letters currently in the hand.
@@ -97,7 +88,6 @@ def display_hand(hand):
         for j in range(hand[letter]):
              print letter,              # print all on the same line
     print                               # print an empty line
-
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -146,8 +136,15 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
     # TO DO ...
-
-#
+    dict = {}
+    word1 = list(word)
+    word_frequency = get_frequency_dict(word)
+    letters_left = 0
+    for letter in hand:
+        letters_left = hand.get(letter) - word_frequency.get(letter, 0)
+        dict[letter] = letters_left
+    return dict
+print update_hand({'a':1, 'x':2, 'l':3, 'e':1}, 'a')
 # Problem #3: Test word validity
 #
 def is_valid_word(word, hand, word_list):
@@ -161,6 +158,18 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     """
     # TO DO...
+
+    if word not in word_list:
+        return False
+    new_hand = hand.copy()
+    for w in word:
+        if new_hand.get(w, 0) > 0:
+            new_hand[w] -= 1
+        else:
+            return False
+    return True
+
+print is_valid_word('ale', {'a':1, 'x':2, 'l':3, 'e':1}, 'ale')
 
 def calculate_handlen(hand):
     handlen = 0
@@ -200,7 +209,11 @@ def play_hand(hand, word_list):
       
     """
     # TO DO ...
-
+    print "Press ENTER to start The Word Game!"
+    raw_input()
+    display_hand(hand)
+    ask_word = raw_input("Type a word using the letters given.")
+    if is_valid_word(ask_word, hand, )
 #
 # Problem #5: Playing a game
 # Make sure you understand how this code works!
@@ -221,6 +234,8 @@ def play_game(word_list):
     * If the user inputs anything else, ask them again.
     """
     # TO DO...
+    #if
+    #ask_word2 = raw_input("Type N for new hand, R for the same hand, or E to leave ")
 
 #
 # Build data structures used for entire session and play game
