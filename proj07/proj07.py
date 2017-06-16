@@ -8,7 +8,7 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 10
+HAND_SIZE = 7
 
 
 SCRABBLE_LETTER_VALUES = {
@@ -278,6 +278,7 @@ def play_game(word_list):
             break
         else:
             print 'Invalid command.'
+
 
 
 # Build data structures used for entire session and play game
