@@ -69,9 +69,35 @@ def play_game(word_list):
     word_list: list (string)
     """
     # TO DO...
-
-
-#
+    n = HAND_SIZE
+    hand = {}
+    order = raw_input('Type u if you want to go first, or type c if you want the computer to go first.'
+    if order == 'u':
+        while True:  # ?
+            cmd = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game:')
+            if cmd == 'r':
+                if not hand:
+                    print 'You have not played a hand yet. Please play a new hand first!'
+                else:
+                    play_hand(hand, load_words())
+            elif cmd == 'n':
+                hand = deal_hand(n)
+                play_hand(hand, load_words())
+            elif cmd == 'e':
+                break
+            else:
+                print 'Invalid command.'
+    elif order == 'c':
+        comp_play_hand(hand, word_list)
+    else:
+        print "Invalid command."
+    if get_word_score(comp_play_hand(hand, word_list), n) > get_word_score(play_hand(hand, word_list), n):
+        print "The computer wins!"
+    elif get_word_score(play_hand(hand, word_list), n) > get_word_score(comp_play_hand(hand, word_list), n)
+        print "You won!"
+    else:
+        print "Wow! It's a tie!"
+        
 # Build data structures used for entire session and play game
 #
 if __name__ == '__main__':
